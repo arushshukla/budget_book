@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head> 
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='5' y='5' width='90' height='90' rx='22' fill='%2328667c'/%3E%3Cpath d='M5,50 h90 v-23 c0,-12.15 -9.85,-22 -22,-22 h-46 c-12.15,0 -22,9.85 -22,22 z' fill='%2345a18c'/%3E%3Cpath d='M18,90 Q50,80 82,90 L82,45 L50,60 L18,45 Z' fill='none' stroke='white' stroke-width='6' stroke-linejoin='round'/%3E%3Cpath d='M30,70 C40,55 55,55 65,65 L82,45' stroke='white' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>BUDGET BOOK - Smart Money Habits</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Custom styles for input focus glow and skeleton loaders */
+      input:focus, select:focus, textarea:focus {
+        box-shadow: 0 0 0 3px rgba(0, 191, 165, 0.3) !important;
+        border-color: #00BFA5 !important;
+      }
+      .transition-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      .screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            borderRadius: {
+              'xl': '12px',
+              '2xl': '16px',
+            },
+            colors: {
+              primary: {
+                DEFAULT: '#00BFA5', // A vibrant teal
+                dark: '#009688',
+              },
+              background: {
+                light: '#F7F9FC', // A slightly off-white
+                dark: '#121212',
+              },
+              surface: {
+                light: '#FFFFFF',
+                dark: '#1E1E1E', 
+              },
+              text: {
+                light: '#212121',
+                dark: '#E0E0E0',
+                muted: {
+                  light: '#6c757d',
+                  dark: '#adb5bd',
+                }
+              },
+              input: {
+                dark: '#282828',
+              },
+              placeholder: {
+                DEFAULT: '#757575',
+              },
+            },
+            keyframes: {
+              'fade-in': {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              // --- Screen Transitions (Scale/Fade) ---
+              'scale-in': {
+                '0%': { opacity: '0', transform: 'scale(0.95)' },
+                '100%': { opacity: '1', transform: 'scale(1)' },
+              },
+              'scale-out': {
+                '0%': { opacity: '1', transform: 'scale(1)' },
+                '100%': { opacity: '0', transform: 'scale(0.95)' },
+              },
+              // --- Modal Transitions (Elastic) ---
+              'slide-in-up-bounce': {
+                '0%': { transform: 'translateY(100%)', opacity: '0' },
+                '60%': { transform: 'translateY(-5%)', opacity: '1' },
+                '100%': { transform: 'translateY(0%)', opacity: '1' },
+              },
+              'slide-out-down': {
+                '0%': { transform: 'translateY(0%)', opacity: '1' },
+                '100%': { transform: 'translateY(100%)', opacity: '0' },
+              },
+              // --- Onboarding Transitions ---
+              'slide-out-to-left': {
+                '0%': { opacity: '1', transform: 'translateX(0)' },
+                '100%': { opacity: '0', transform: 'translateX(-50%)' },
+              },
+              'slide-in-from-right': {
+                '0%': { opacity: '0', transform: 'translateX(50%)' },
+                '100%': { opacity: '1', transform: 'translateX(0)' },
+              },
+              // --- List Item Animations (Staggered Float) ---
+              'fade-in-float-up': {
+                '0%': { opacity: '0', transform: 'translateY(15px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+               // --- Empty State & Success Animations ---
+              'pulse-gentle': {
+                '0%, 100%': { transform: 'scale(1)' },
+                '50%': { transform: 'scale(1.03)' },
+              },
+              'bounce-in-elastic': {
+                '0%': { transform: 'scale(0.8)', opacity: '0' },
+                '60%': { transform: 'scale(1.1)', opacity: '1' },
+                '100%': { transform: 'scale(1)', opacity: '1' },
+              },
+              'celebrate-zoom': {
+                '0%': { transform: 'scale(0.9)', opacity: '0' },
+                '100%': { transform: 'scale(1)', opacity: '1' },
+              },
+              // --- Skeleton Loader (Wave) ---
+              'shimmer-wave': {
+                '0%': { 'background-position': '-1000px 0' },
+                '100%': { 'background-position': '1000px 0' },
+              },
+            },
+            animation: {
+              // General
+              'fade-in': 'fade-in 0.5s ease-out forwards',
+              // Screen
+              'screen-enter': 'scale-in 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
+              'screen-exit': 'scale-out 0.3s ease-in forwards',
+              // Onboarding
+              'onboarding-exit': 'slide-out-to-left 0.4s ease-in-out forwards',
+              'onboarding-enter': 'slide-in-from-right 0.4s ease-in-out forwards',
+              // Modal
+              'modal-enter': 'slide-in-up-bounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+              'modal-exit': 'slide-out-down 0.3s ease-in forwards',
+              // Lists & Cards
+              'fade-in-up': 'fade-in-float-up 0.5s ease-out forwards',
+              // Other
+              'pulse-gentle': 'pulse-gentle 3s infinite ease-in-out',
+              'shimmer': 'shimmer-wave 2s infinite linear',
+              'bounce-in': 'bounce-in-elastic 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+              'celebrate-zoom': 'celebrate-zoom 0.5s ease-out forwards',
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-background-light dark:bg-background-dark font-sans">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

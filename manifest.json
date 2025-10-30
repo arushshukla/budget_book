@@ -1,0 +1,15 @@
+{
+  "short_name": "Budget Book",
+  "name": "BUDGET BOOK",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='5' y='5' width='90' height='90' rx='22' fill='%2328667c'/%3E%3Cpath d='M5,50 h90 v-23 c0,-12.15 -9.85,-22 -22,-22 h-46 c-12.15,0 -22,9.85 -22,22 z' fill='%2345a18c'/%3E%3Cpath d='M18,90 Q50,80 82,90 L82,45 L50,60 L18,45 Z' fill='none' stroke='white' stroke-width='6' stroke-linejoin='round'/%3E%3Cpath d='M30,70 C40,55 55,55 65,65 L82,45' stroke='white' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#45a18c",
+  "background_color": "#ffffff"
+}

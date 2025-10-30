@@ -1,0 +1,7 @@
+{
+  "name": "BUDGET BOOK",
+  "description": "The smart, simple, and secure way for teens to manage their money and build healthy financial habits. Track expenses, set budgets, and gain insights, all offline. Smart money habits start young.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
